@@ -1,0 +1,14 @@
+{% extends 'user/index1.html' %}
+{% load static %}
+{% block content %}
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ books.bookimage.url }}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{books.id}}</h5>
+    <p class="card-text">{{books.bookname}}</p>
+    <p class="card-text">{{books.bookprice}}</p>
+    <p class="card-text">{{books.bookauthor}}</p>
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+  </div>
+</div>
+{% endblock %}

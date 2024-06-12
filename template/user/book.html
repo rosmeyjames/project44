@@ -1,0 +1,46 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+{% extends 'user/index1.html' %}
+{% load static %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">submit</button><a href="{% url 'createauthor' %}">author</a>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+        <th scope="col">operation</th>
+    </tr>
+  </thead>
+    {% for book in books %}
+  <tbody>
+    <tr>
+      <td>{{book.id}}</td>
+      <td>{{book.bookname}}</td>
+      <td>{{book.bookauthor}}</td>
+        <td>{{book.bookprice}}</td>
+      <td>{{book.quantity}}</td>
+  <td>
+<a class="btn btn-primary" href="{% url 'updatebook' book.id %}">update</a>
+<a type="button" class="btn btn-secondary" href="{% url 'deletebook' book.id %}">delete</a>
+<a class="btn btn-success" href="{% url 'detailbook' book.id %}">detail</a> </td></tr>
+  </tbody>
+    {% endfor %}
+</table>
+{% endblock %}

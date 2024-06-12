@@ -1,0 +1,54 @@
+{% extends 'admin/index.html' %}
+{% load static %}
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for book in page %}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ book.id }}</td>
+      <td>{{ book.bookname }}</td>
+      <td>{{ book.bookauthor }}</td>
+
+      <td><img src="{{ book.bookimage.url }}"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    {% if page.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{page.previous_page_number}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    {% endif %}
+    {% for num in page.paginator.page_range %}
+    <li class="page-item {% if page.number == num %}activate{% endif %}">
+      <a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+    {% endfor %}
+    {% if page.has_next %}
+
+    <li class="page-item">
+      <a class="page-link" href="?page={{page.next_page_number}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}

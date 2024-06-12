@@ -1,0 +1,52 @@
+{% extends 'user/index1.html' %}
+{% load static %}
+{% block content %}
+{% for msg in messages %}
+   <script>
+    window.alert('{{ msg }}')
+   </script>
+   {% endfor %}
+ <h2 style="text-align: center;">My Cart</h2><br>
+{% if not cart_items %}
+<p>your cart is empty</p>
+{% else %}
+
+ {% for item in cart_items %}
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ item.book.bookimage.url }}" alt="Card image cap"/>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.book.id }}</h5>
+    <p class="card-text">{{item.book.bookname}}</p>
+    <p class="card-text">{{item.book.bookprice}}</p>
+    <p class="card-text">{{item.book.bookauthor}}</p>
+
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+  </div>
+
+<a href="{% url 'removefromcart' item.id %}">Remove</a>
+
+    <input type="number"name="quantity"value="{{item.book.quantity}}">available stock
+{% if item.quantity < item.book.quantity %}
+
+<!--<input type="number"name="quantity"value="{{item.book.quantity}}">-->
+<a href="{% url 'increasequantity' item.id %}">+</a>
+{% else %}
+<a href="{% url 'decreasequantity' item.id %}">-</a></div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<form action="{% url 'checkoutsession' %}"method="post">
+    {% csrf_token %}
+<div class="card" style="width: 18rem;">
+
+  <div class="card-body">
+    <h5 class="card-title">total items:{{total_items}}</h5>
+    <p class="card-text">total price{{total_price}}</p>
+      <button id="checkout"type="submit"class="card-link">checkout</button>
+<!--    <p class="card-text">{{item.book.bookprice}}</p>-->
+<!--    <p class="card-text">{{item.book.bookauthor}}</p>-->
+<!--    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+  </div>
+</div>
+</form>
+{% endblock %}
